@@ -9,19 +9,19 @@
 
 ### Environment
 
-1. Create a virtual environment and activate it.
+1. Create a virtual environment and activate it
 
 python3 -m venv env
 source env/bin/activate
 
-### 2. Install transformers .
-we have cloned the transformer library and then modified the library to work with the arabic.
+### 2. Install transformers
+we have cloned the transformer library and then modified the library to work with the arabic language
 
-The orignal transformers library link  
+Link to the orignal transformers library:
 
 `https://github.com/huggingface/transformers` 
 
-but the `distillation` folder has been modified to work with the arabic models
+However, the `distillation` folder has been modified to work with arabic models
 
 ```
 cd transformes
@@ -33,16 +33,20 @@ pip install -r transformers/examples/research_projects/distillation/requirements
 
 ## Training
 
-### binarizating Data
+### Binarizing the data
+
+Note: file path should be the data source file, and the dump_file is the location where the binarization output will be stored
 ```
 python scripts/binarized_data.py \
-    --file_path arabic.txt \
+    --file_path arabic.txt \ 
     --tokenizer_type bert \
     --tokenizer_name asafaya/bert-large-arabic \
     --dump_file data/binarized_text
 ```
 
 ### Token counts
+
+Note: vocab size was meant to match that of the teacher model
 ```
 python scripts/token_counts.py \
     --data_file data/binarized_text.pickle \
@@ -69,7 +73,7 @@ python train.py \
 Using multi GPU
 
 ```
-export CUDA_VISIBLE_DEVICES=1,2
+export CUDA_VISIBLE_DEVICES=1,2 #depends on the number of GPU's you have
 
 export NODE_RANK=0
 export N_NODES=1
